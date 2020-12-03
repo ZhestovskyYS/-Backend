@@ -1,0 +1,102 @@
+@startuml
+
+hide circle
+    skinparam minClassWidth 170
+
+    class Person {
+    name: String
+    ---
+    Родительский класс для
+    классов GameStudio,
+    Admin и Client
+    }
+    
+    class Admin extends Person{
+    name: String
+    income: Integer
+    ---
+    Хранит информацию о
+    доходе администратора
+    }
+    
+    class GameStudio extends Person {
+    name: String
+    income: Integer
+    ---
+    gameStudiosList []: Array<GameStudio>
+    addGameToStore(newGame: Game)
+    ---
+    Хранит данные о студии, выпустившей игру,
+    и дает ей добавлять игру на торговую площадку.
+    }
+    
+    class Client extends Person {
+    name: String
+    library []: Array<String>
+    ---
+    clientList []: Array<Client>
+    addGameToPocket(gameName, quantity)
+    deletePositionFromPocket(gameName, quantity)
+    changePositionInPocket(gameName, quantity, newGameName, newQuantity)
+    lookForAGame(gameName)
+    lookForAGenre(genreName)
+    ---
+    Хранит ифнормацию о клиенте и позволяет ему
+    работать с корзиной, осуществлять поиск игр
+
+    }
+    
+    class Earnings{
+    buyList []: Map<gameName, quantity>
+    costsOfGames []: Map<gameName, cost>
+    ---
+    totalIncome []: Map<studioName, income>
+    incomeOfAdmin: Integer
+    setStudiosIncome(totalIncome)
+    ---
+    Позволяет расчитать доход студии
+    и долю администратора
+    }
+    
+    class Game{
+    name: String
+    shortName: String
+    genreName: String
+    studioName: String
+    disription: String
+    cost: Integer
+    ---
+    gameList []: Array<Game>
+    ---
+    Хранит информацию о играх
+    }
+    
+    class Genre{
+    name: String
+    shortName: String
+    ---
+    genreList []: Array<String>
+    ---
+    Хранит информацию о жанрах игр
+    }
+    
+    class Pocket{
+    buyList []: Map<gameName, quantity>
+    ClientName: String
+    ---
+    buy(buyList, ClientName)
+    cleanAll()
+    ---
+    Хранит информацию о списке 
+    преобретаемых игр и позволяет
+    их приобрести
+    }
+    
+    Pocket "1" -- "1" Client
+    Genre "*" -- "*" Game
+    Earnings "1" -- "*" GameStudio
+    Earnings "1" -- "1" Admin
+    Pocket "1" -- "1" Earnings
+    Game "*" -- "1" Pocket
+
+@enduml

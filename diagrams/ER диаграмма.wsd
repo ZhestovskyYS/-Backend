@@ -1,0 +1,72 @@
+@startuml
+
+hide circle
+    skinparam minClassWidth 170
+
+    class Admin{
+    id: Integer
+    ---
+    name: String
+    income: Integer
+    }
+    
+    class GameStudio{
+    id: Integer
+    ---
+    name: String
+    income: Integer
+    gameStudiosList []: Array<GameStudio>
+    }
+    
+    class Client{
+    id: Integer
+    ---
+    name: String
+    library []: Array<String>
+    clientList []: Array<Client>
+    }
+    
+    class Earnings{
+    id: Integer
+    ---
+    buyList []: Map<gameName, quantity>
+    costsOfGames []: Map<gameName, cost>
+    totalIncome []: Map<studioName, income>
+    incomeOfAdmin: Integer
+    }
+    
+    class Game{
+    id: Integer
+    ---
+    name: String
+    shortName: String
+    genreName: String
+    studioName: String
+    disription: String
+    cost: Integer
+    gameList []: Array<Game>
+    }
+    
+    class Genre{
+    id: Integer
+    ---
+    genreList []: Array<String>
+    name: String
+    shortName: String
+    }
+    
+    class Pocket{
+    id: Integer
+    ---
+    buyList []: Map<gameName, quantity>
+    ClientName: String
+    }
+    
+    Pocket ||--|| Client
+    Genre }|--o{ Game
+    Earnings ||--|{ GameStudio
+    Earnings ||--|| Admin
+    Pocket ||--|| Earnings
+    Game }|--|| Pocket
+
+@enduml

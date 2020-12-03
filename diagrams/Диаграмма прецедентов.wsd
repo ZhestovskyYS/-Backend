@@ -1,0 +1,24 @@
+@startuml one
+    left to right direction
+    Person <|-- Client
+    Person <|-- Admin
+    Person <|-- GameStudios
+    rectangle {
+     usecase ("Look for a game") as L4gm
+     usecase ("Look for a genre of game") as L4gn
+     usecase ("Add game to the pocket") as AG
+     usecase ("Buy game") as BG
+     
+      Client -- L4gm
+      Client -- L4gn
+      Client -- BG
+      Client -- ("Change position of the pocket")
+      Client -- AG
+      Client -- ("Delete game from the pocket")
+      Admin -- ("Set gamelist")
+      Admin -- ("Set genrelist")
+      Admin -- ("Set income count system")
+      GameStudios -- ("Add games to the store")
+    }
+    
+@enduml
